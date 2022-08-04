@@ -23,10 +23,21 @@ router.get('/:id', (req, res) => {
     },
     include: [
       {
+        //the posts they've created
         model: Post,
         attributes: ['id', 'title', 'post_url', 'created_at']
       },
       {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'created_at'],
+        include: {
+          //so you can see on which post this user commented
+          model: Post,
+          attributes: ['title']
+        }
+      },
+      {
+        //the posts they've voted on
         model: Post,
         attributes: ['title'],
         through: Vote,
