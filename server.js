@@ -6,6 +6,8 @@ const exphbs = require('express-handlebars');
 const hbs = exphbs.create({});
 const session = require('express-session');
 
+require('dotenv').config();
+
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
@@ -21,9 +23,11 @@ const sess = {
   })
 };
 
-
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+//turn on sessions
+app.use(session(sess));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,9 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // turn on routes
 app.use(routes);
-
-//turn on sessions
-app.use(session(sess));
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {

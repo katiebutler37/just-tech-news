@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Post, Vote } = require("../../models");
+const session = require('express-session');
 
 // GET /api/users
 router.get("/", (req, res) => {
@@ -146,6 +147,17 @@ router.delete("/:id", (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
+});
+
+router.post('/logout', (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  }
+  else {
+    res.status(404).end();
+  }
 });
 
 module.exports = router;
