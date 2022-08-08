@@ -16,6 +16,8 @@
 {{> comments post.comments}}
 
 {{#if loggedIn}}
+{{!-- this absolute -ish link is specific to handlebars rendering, absolute in relation to the servers static assets (public folder) --}}
+{{!-- Request URL: http://localhost:3001/javascript/logout.js --}}
 <script src="/javascript/comment.js"></script>
 <script src="/javascript/upvote.js"></script>
 {{/if}}

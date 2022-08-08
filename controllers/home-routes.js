@@ -89,6 +89,8 @@ router.get('/login', (req, res) => {
     
           // pass data to template
           res.render('single-post', { 
+            //this is where we passed the post to the template so post.post_url is redundant because it already has post
+            //similiar to calling alert with the window.alert
               post,
               loggedIn: req.session.loggedIn 
             });
